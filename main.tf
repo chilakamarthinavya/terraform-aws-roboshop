@@ -5,7 +5,6 @@ resource "aws_lb_target_group" "main" {
     vpc_id = local.vpc_id
     deregistration_delay = 120
     health_check{
-
       healthy_threshold = 2
       interval = 5
       matcher = "200-299"
@@ -13,7 +12,6 @@ resource "aws_lb_target_group" "main" {
       port= local.tg_port
       timeout = 2
       unhealthy_threshold = 3
-
     }
 }
 
@@ -37,7 +35,7 @@ resource "terraform_data" "main" {
   ]
 
    provisioner "file" {
-    source      = "${var.component}.sh"
+    source      = "bootstrap.sh"
      destination = "/tmp/${var.component}.sh"
   }
 
