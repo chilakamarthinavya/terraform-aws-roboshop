@@ -100,40 +100,35 @@ resource "aws_launch_template" "main" {
 #EC2 tags
   tag_specifications {
     resource_type = "instance"
+tags= merge(
 
-    tags = {
-      Name = merge(
-        local.common_tags,
-        {
-          Name= "${var.project}-${var.environment}-${var.component}"
-        }
-      )
-    }
+    local.common_tags,
+  {
+    Name= "${var.project}-${var.environment}-${var.component}"
+  }
+)
   }
 
 # volume tags created by ASG
    tag_specifications {
     resource_type = "volume"
+tags= merge(
 
-    tags = {
-      Name = merge(
-        local.common_tags,
-        {
-          Name= "${var.project}-${var.environment}-${var.component}"
-        }
-      )
-    }
+    local.common_tags,
+  {
+    Name= "${var.project}-${var.environment}-${var.component}"
+  }
+)
   }
 
   # launch template tags
-tags = {
-      Name = merge(
-        local.common_tags,
-        {
-          Name= "${var.project}-${var.environment}-${var.component}"
-        }
-      )
-    }
+tags= merge(
+
+    local.common_tags,
+  {
+    Name= "${var.project}-${var.environment}-${var.component}"
+  }
+)
 }
 
 resource "aws_autoscaling_group" "main" {
